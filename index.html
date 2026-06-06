@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -14,20 +15,23 @@ font-family:'Segoe UI',sans-serif;
 }
 
 body{
-height:100vh;
-overflow:hidden;
+min-height:100vh;
+overflow-y:auto;
+overflow-x:hidden;
 background:linear-gradient(to bottom,#0f172a,#1e293b,#334155);
-display:flex;
-justify-content:center;
-align-items:center;
 color:white;
+padding:40px 20px;
+position:relative;
 }
 
 .stars{
-position:absolute;
+position:fixed;
+top:0;
+left:0;
 width:100%;
 height:100%;
-overflow:hidden;
+z-index:0;
+pointer-events:none;
 }
 
 .star{
@@ -43,21 +47,18 @@ to{opacity:1;}
 }
 
 .container{
+max-width:850px;
+margin:auto;
 text-align:center;
-max-width:750px;
-padding:25px;
-z-index:10;
-}
-
-h2{
-margin-bottom:25px;
-font-weight:500;
+position:relative;
+z-index:2;
 }
 
 .icon{
 font-size:90px;
 cursor:pointer;
 animation:floatIcon 2s infinite ease-in-out;
+margin:20px 0;
 }
 
 @keyframes floatIcon{
@@ -70,11 +71,10 @@ display:none;
 }
 
 .message{
-margin-top:25px;
 font-size:24px;
-line-height:1.7;
-min-height:180px;
+line-height:1.8;
 white-space:pre-wrap;
+margin-top:20px;
 }
 
 .btn{
@@ -84,20 +84,35 @@ border:none;
 border-radius:30px;
 cursor:pointer;
 font-size:16px;
+font-weight:bold;
 background:white;
 color:#0f172a;
-font-weight:bold;
-transition:.3s;
-}
-
-.btn:hover{
-transform:scale(1.05);
 }
 
 .reason-box{
 margin-top:20px;
 font-size:20px;
-color:#e2e8f0;
+line-height:1.6;
+}
+
+.meme-box{
+margin-top:50px;
+}
+
+.meme-card{
+background:rgba(255,255,255,0.08);
+padding:20px;
+margin:15px auto;
+border-radius:15px;
+max-width:650px;
+line-height:1.8;
+backdrop-filter:blur(8px);
+}
+
+.footer{
+margin-top:40px;
+padding-bottom:50px;
+font-size:20px;
 }
 
 .sparkle{
@@ -116,13 +131,8 @@ transform:translateY(-100px);
 opacity:0;
 }
 }
-
-.footer{
-margin-top:30px;
-font-size:18px;
-opacity:.9;
-}
 </style>
+
 </head>
 
 <body>
@@ -131,7 +141,7 @@ opacity:.9;
 
 <div class="container">
 
-<h2>A Small Message For Aashritha ✨</h2>
+<h1>A Small Message For Aashritha ✨</h1>
 
 <div class="icon" onclick="startMessage()">⭐</div>
 
@@ -145,11 +155,37 @@ A Few Things I Appreciate 🤝
 
 <div id="reasonBox" class="reason-box"></div>
 
-<button class="btn" onclick="showFinalNote()">
-Final Note ✉️
+<div class="meme-box">
+
+<h2>😂 Friendship Meme Break</h2>
+
+<div class="meme-card">
+<b>Me:</b> I'll send a simple text.<br>
+<b>Also Me:</b> Creates an entire website instead. 🤦‍♂️
+</div>
+
+<div class="meme-card">
+<b>Aashritha:</b> Just send a message.<br>
+<b>Karan:</b> Learns GitHub, HTML and hosting in one night. 💻✨
+</div>
+
+<div class="meme-card">
+<b>Normal People:</b> Sorry.<br>
+<b>Me:</b> Sorry.com 😭
+</div>
+
+<div class="meme-card">
+<b>Friendship Status:</b><br>
+Too valuable to lose over misunderstandings. 🤝
+</div>
+
+</div>
+
+<button class="btn" onclick="showSecret()">
+One Last Thing 👀
 </button>
 
-<div id="finalNote" class="reason-box"></div>
+<div id="secret" class="reason-box"></div>
 
 <div class="footer">
 — Karan
@@ -162,7 +198,7 @@ Final Note ✉️
 <script>
 
 // Stars
-for(let i=0;i<180;i++){
+for(let i=0;i<200;i++){
 let star=document.createElement("div");
 star.classList.add("star");
 star.style.width=Math.random()*3+"px";
@@ -185,9 +221,8 @@ setTimeout(()=>{
 sparkle.remove();
 },6000);
 
-},600);
+},700);
 
-// Main Message
 const text =
 "Hey Aashritha,\n\nI made this little page because a normal message didn't feel enough.\n\nI'm sorry if I've hurt you, disappointed you, or made things difficult lately.\n\nYou're someone I genuinely value, and I didn't want things to be left unsaid.\n\nThank you for the conversations, the support, and the memories we've shared.\n\nI know things may not be perfect right now, but I wanted you to know that I'm truly sorry.\n\nTake care, and thank you for being such a good friend.";
 
@@ -197,17 +232,16 @@ document.getElementById("content").classList.remove("hidden");
 
 let i=0;
 
-function typeWriter(){
+function type(){
 if(i<text.length){
 document.getElementById("typewriter").innerHTML += text.charAt(i);
 i++;
-setTimeout(typeWriter,35);
+setTimeout(type,35);
 }
 }
-typeWriter();
+type();
 }
 
-// Appreciation Messages
 const reasons=[
 "You're someone I can talk to honestly.",
 "You've been there during difficult times.",
@@ -221,17 +255,15 @@ let reasonIndex=0;
 
 function showReason(){
 if(reasonIndex<reasons.length){
-document.getElementById("reasonBox").innerHTML = reasons[reasonIndex];
+document.getElementById("reasonBox").innerHTML=reasons[reasonIndex];
 reasonIndex++;
 }
 }
 
-// Final Note
-function showFinalNote(){
-document.getElementById("finalNote").innerHTML =
-"Aashritha, friendships aren't about never making mistakes. They're about caring enough to acknowledge them and make things right. Thank you for being part of my life. 🤝";
+function showSecret(){
+document.getElementById("secret").innerHTML=
+"If you've reached this far, thank you for reading. This page wasn't made to change your mind about anything. It was simply my way of saying that our friendship matters to me. 🌟";
 }
-
 </script>
 
 </body>
