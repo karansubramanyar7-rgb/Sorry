@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Message For Aashritha</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(to bottom,#0f172a,#1e293b,#334155);
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+}
+
+.stars{
+position:absolute;
+width:100%;
+height:100%;
+overflow:hidden;
+}
+
+.star{
+position:absolute;
+background:white;
+border-radius:50%;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:.2;}
+to{opacity:1;}
+}
+
+.container{
+text-align:center;
+max-width:750px;
+padding:25px;
+z-index:10;
+}
+
+h2{
+margin-bottom:25px;
+font-weight:500;
+}
+
+.icon{
+font-size:90px;
+cursor:pointer;
+animation:floatIcon 2s infinite ease-in-out;
+}
+
+@keyframes floatIcon{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+.hidden{
+display:none;
+}
+
+.message{
+margin-top:25px;
+font-size:24px;
+line-height:1.7;
+min-height:180px;
+white-space:pre-wrap;
+}
+
+.btn{
+margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-size:16px;
+background:white;
+color:#0f172a;
+font-weight:bold;
+transition:.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+}
+
+.reason-box{
+margin-top:20px;
+font-size:20px;
+color:#e2e8f0;
+}
+
+.sparkle{
+position:absolute;
+font-size:22px;
+animation:rise 6s linear forwards;
+}
+
+@keyframes rise{
+0%{
+transform:translateY(100vh);
+opacity:1;
+}
+100%{
+transform:translateY(-100px);
+opacity:0;
+}
+}
+
+.footer{
+margin-top:30px;
+font-size:18px;
+opacity:.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="container">
+
+<h2>A Small Message For Aashritha ✨</h2>
+
+<div class="icon" onclick="startMessage()">⭐</div>
+
+<div id="content" class="hidden">
+
+<div id="typewriter" class="message"></div>
+
+<button class="btn" onclick="showReason()">
+A Few Things I Appreciate 🤝
+</button>
+
+<div id="reasonBox" class="reason-box"></div>
+
+<button class="btn" onclick="showFinalNote()">
+Final Note ✉️
+</button>
+
+<div id="finalNote" class="reason-box"></div>
+
+<div class="footer">
+— Karan
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+// Stars
+for(let i=0;i<180;i++){
+let star=document.createElement("div");
+star.classList.add("star");
+star.style.width=Math.random()*3+"px";
+star.style.height=star.style.width;
+star.style.left=Math.random()*100+"%";
+star.style.top=Math.random()*100+"%";
+star.style.animationDelay=Math.random()*2+"s";
+document.querySelector(".stars").appendChild(star);
+}
+
+// Sparkles
+setInterval(()=>{
+let sparkle=document.createElement("div");
+sparkle.innerHTML="✨";
+sparkle.classList.add("sparkle");
+sparkle.style.left=Math.random()*100+"vw";
+document.body.appendChild(sparkle);
+
+setTimeout(()=>{
+sparkle.remove();
+},6000);
+
+},600);
+
+// Main Message
+const text =
+"Hey Aashritha,\n\nI made this little page because a normal message didn't feel enough.\n\nI'm sorry if I've hurt you, disappointed you, or made things difficult lately.\n\nYou're someone I genuinely value, and I didn't want things to be left unsaid.\n\nThank you for the conversations, the support, and the memories we've shared.\n\nI know things may not be perfect right now, but I wanted you to know that I'm truly sorry.\n\nTake care, and thank you for being such a good friend.";
+
+function startMessage(){
+
+document.getElementById("content").classList.remove("hidden");
+
+let i=0;
+
+function typeWriter(){
+if(i<text.length){
+document.getElementById("typewriter").innerHTML += text.charAt(i);
+i++;
+setTimeout(typeWriter,35);
+}
+}
+typeWriter();
+}
+
+// Appreciation Messages
+const reasons=[
+"You're someone I can talk to honestly.",
+"You've been there during difficult times.",
+"You make conversations better.",
+"You've taught me things without even realizing it.",
+"Good friends are rare.",
+"Thank you for being one of them. 🤝"
+];
+
+let reasonIndex=0;
+
+function showReason(){
+if(reasonIndex<reasons.length){
+document.getElementById("reasonBox").innerHTML = reasons[reasonIndex];
+reasonIndex++;
+}
+}
+
+// Final Note
+function showFinalNote(){
+document.getElementById("finalNote").innerHTML =
+"Aashritha, friendships aren't about never making mistakes. They're about caring enough to acknowledge them and make things right. Thank you for being part of my life. 🤝";
+}
+
+</script>
+
+</body>
+</html>
